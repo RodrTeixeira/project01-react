@@ -13,7 +13,7 @@ export function Sidebar() {
                 className={styles.avatar}
                  src="https://github.com/rodrteixeira.png"  
                  />
-                <strong>Mario Antunes</strong>
+                <strong>Mário Antunes</strong>
                 <span>Web Developer</span>
             </div>
             <footer>
