@@ -15,13 +15,18 @@ interface Content {
 
 }
 
-interface PostProps {
+export interface PostType {
+    id: number;
     author: Author;
     publishedAt: Date;
     content: Content[];
 }
 
-export function Post({ author: Author, publishedAt, content }:PostProps) {
+interface PostProps {
+    post: PostType;
+}
+
+export function Post({ post }:PostProps) {
 
     const [comments, setComments] = useState([
         "Post da hora !!!"  
@@ -34,7 +39,7 @@ export function Post({ author: Author, publishedAt, content }:PostProps) {
         month: "long",
         hour: "2-digit",
         minute: "2-digit",
-    }).format(publishedAt);
+    }).format(post.publishedAt);
 
     function handleCreateNewComment(event: FormEvent) {
         event.preventDefault();
@@ -68,16 +73,16 @@ export function Post({ author: Author, publishedAt, content }:PostProps) {
         <article className={styles.post}>
             <header>
                 <div className={styles.author}>
-                    <Avatar src={Author.avatarUrl} />
+                    <Avatar src={post.author.avatarUrl} />
                     <div className={styles.authorInfo}>
-                        <strong>{Author.name}</strong>
-                        <span>{Author.role}</span>
+                        <strong>{post.author.name}</strong>
+                        <span>{post.author.role}</span>
                     </div>
                 </div>
                 <time title="11 de Maio às 08:13h" dateTime="2022-05-11 08:13:30">{publishedDateFormatted}</time>
             </header>
             <div className={styles.content}>
-                {content.map(line => {
+                {post.content.map(line => {
                     if (line.type === "paragraph") {
                         return <p key={line.content}>{line.content}</p>;
                     } else if (line.type === "link") {
